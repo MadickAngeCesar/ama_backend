@@ -2,7 +2,6 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-import os
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -20,9 +19,6 @@ def create_app(config_filename=None):
     db.init_app(app)
     migrate.init_app(app, db)
     CORS(app)  # Allow all origins
-
-    port = int(os.environ.get('PORT', 5000))  # Default to 5000 if PORT is not set
-    app.run(host='0.0.0.0', port=port)
     
     with app.app_context():
         from . import routes
